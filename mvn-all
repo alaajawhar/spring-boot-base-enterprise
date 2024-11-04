@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Path to the mvnw script
+MVNW_PATH="$(pwd)/.mvn/mvnw"
+
+# List of projects in the order you want to build
+ projects=("spring-boot-base-parent", "spring-boot-base-common", "spring-boot-base-database", "spring-boot-base-web-services")
+ 
+# Loop to remove the target directory for each project
+for project in "${projects[@]}"; do
+    if [ -d "$project" ]; then
+        echo "Deleting target folder in $project"
+        (cd "$project" && rm -rf target)
+        if [ $? -eq 0 ]; then
+            echo "Target folder deleted in $project"
+        else
+            echo "Failed to delete target folder in $project"
+            exit 1  # Exit if deletion fails
+        fi
+    else
+        echo "Skipping $project (directory not found)"
+    fi
+done
+
+# Number of retries
+MAX_RETRIES=4
+
+# Loop through each project and run mvnw install
+for project in "${projects[@]}"; do
+    if [ -d "$project" ]; then
+        echo "Running mvnw install in $project"
+        attempts=0
+        success=false
+        until [ "$attempts" -ge "$MAX_RETRIES" ]; do
+            (cd "$project" && "$MVNW_PATH" install)
+            if [ $? -eq 0 ]; then
+                echo "Build succeeded in $project"
+                success=true
+                break
+            else
+                attempts=$((attempts + 1))
+                echo "Build failed in $project. Attempt $attempts of $MAX_RETRIES."
+                if [ "$attempts" -lt "$MAX_RETRIES" ]; then
+                    echo "Retrying..."
+                fi
+            fi
+        done
+        if [ "$success" = false ]; then
+            echo "Build failed in $project after $MAX_RETRIES attempts."
+            exit 1
+        fi
+    else
+        echo "Skipping $project (directory not found)"
+    fi
+done
+echo "All projects have been built successfully"
+exit 1

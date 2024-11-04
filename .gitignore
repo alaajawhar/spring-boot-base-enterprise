@@ -1,0 +1,4 @@
+/.idea/
+**/target/
+**.iml
+/ui/src/main/resources/static

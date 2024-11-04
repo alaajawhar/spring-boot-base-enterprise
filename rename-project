@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Check if the correct number of arguments is provided
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <search_string> <replace_string>"
+    exit 1
+fi
+
+# Assign arguments to variables
+search_string=spring-boot-base
+replace_string=$1
+
+# Use find and sed to replace the string in all files recursively
+find . -type f -exec sed -i "s/$search_string/$replace_string/g" {} +
+
+echo "Replacement complete. The string '$search_string' has been replaced with '$replace_string' in all files under the current directory."
