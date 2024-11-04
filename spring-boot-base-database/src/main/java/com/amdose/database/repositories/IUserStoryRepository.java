@@ -1,6 +1,6 @@
-package com.amdose.base.repositories;
+package com.amdose.database.repositories;
 
-import com.amdose.base.repositories.entities.UserStory;
+import com.amdose.database.entities.UserStory;
 import org.springframework.data.repository.CrudRepository;
 
 /**

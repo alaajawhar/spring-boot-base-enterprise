@@ -1,4 +1,4 @@
-package com.amdose.base.repositories.entities;
+package com.amdose.database.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;

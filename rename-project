@@ -16,14 +16,15 @@ replace_string=$1
 script_name=$(basename "$0")
 
 # Use find and sed to replace the string in all files recursively, excluding the current script
-find . -type f ! -name "$script_name" -exec grep -l "$search_string" {} \; -exec sed -i "s/$search_string/$replace_string/g" {} + | tee changed_files.log
+find . -type f ! -name "$script_name" -exec grep -l "$search_string" {} \; -exec sed -i "s/$search_string/$replace_string/g" {} + | while read -r file; do
+    echo "Modified: $file"
+done
 
 # Rename files and directories, excluding the current script
 find . -depth -name "*${search_string}*" ! -name "$script_name" | while IFS= read -r item; do
     new_name=$(echo "$item" | sed "s/$search_string/$replace_string/g")
     mv "$item" "$new_name"
-    echo "$item" >> changed_files.log
     echo "Renamed: $item to $new_name"
 done
 
-echo "Replacement complete. The string '$search_string' has been replaced with '$replace_string' in all files and folder names under the current directory. See 'changed_files.log' for a list of changes."
+echo "Replacement complete. The string '$search_string' has been replaced with '$replace_string' in all files and folder names under the current directory."
