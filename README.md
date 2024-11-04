@@ -7,6 +7,11 @@
 2. Step2: select "ANZI SHADOW" from the font dropdown
 3. step3: copy your desired banner
 
+## Load .dic file
+1. open settings
+2. Go to "Spelling" tab
+3. add new "Accepted words" and select your .dic file
+
 ## 
 
 # Access Swagger-ui
