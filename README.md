@@ -10,7 +10,7 @@
 ## Load .dic file
 1. open settings
 2. Go to "Spelling" tab
-3. add new "Accepted words" and select your .dic file
+3. add .dic file you have under "Custom dictionaries"
 
 ## 
 
