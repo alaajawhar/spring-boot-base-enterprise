@@ -1,30 +1,59 @@
 #!/bin/bash
 
-# Fixed search string
-search_string="spring-boot-base"
-
-# Check if the correct number of arguments is provided
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <replace_string>"
+# Check if argument is provided
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <replacement_string>"
+    echo "Example: $0 my-new-project"
     exit 1
 fi
 
-# Assign argument to variable
-replace_string=$1
+REPLACEMENT="$1"
+SEARCH_STRING="spring-boot-base"
 
-# Get the current script's filename
-script_name=$(basename "$0")
+echo "Replacing '$SEARCH_STRING' with '$REPLACEMENT' in all files and filenames..."
 
-# Use find and sed to replace the string in all files recursively, excluding the current script
-find . -type f ! -name "$script_name" -exec grep -l "$search_string" {} \; -exec sed -i "s/$search_string/$replace_string/g" {} + | while read -r file; do
-    echo "Modified: $file"
-done
+# Function to replace content in files
+replace_in_files() {
+    echo "Replacing content in files..."
+    
+    # Find all files (excluding directories) and replace content
+    find . -type f -exec grep -l "$SEARCH_STRING" {} \; | while read -r file; do
+        echo "  Updating content in: $file"
+        # Use sed to replace content (works on both Linux and macOS)
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            # macOS
+            sed -i '' "s/$SEARCH_STRING/$REPLACEMENT/g" "$file"
+        else
+            # Linux
+            sed -i "s/$SEARCH_STRING/$REPLACEMENT/g" "$file"
+        fi
+    done
+}
 
-# Rename files and directories, excluding the current script
-find . -depth -name "*${search_string}*" ! -name "$script_name" | while IFS= read -r item; do
-    new_name=$(echo "$item" | sed "s/$search_string/$replace_string/g")
-    mv "$item" "$new_name"
-    echo "Renamed: $item to $new_name"
-done
+# Function to rename files and directories
+rename_files() {
+    echo "Renaming files and directories..."
+    
+    # Find all files and directories containing the search string
+    # Process files first, then directories (bottom-up approach)
+    find . -depth -name "*$SEARCH_STRING*" | while read -r item; do
+        # Get directory and basename
+        dir=$(dirname "$item")
+        base=$(basename "$item")
+        
+        # Create new name
+        new_name="${base//$SEARCH_STRING/$REPLACEMENT}"
+        new_path="$dir/$new_name"
+        
+        if [ "$item" != "$new_path" ]; then
+            echo "  Renaming: $item -> $new_path"
+            mv "$item" "$new_path"
+        fi
+    done
+}
 
-echo "Replacement complete. The string '$search_string' has been replaced with '$replace_string' in all files and folder names under the current directory."
+replace_in_files
+rename_files
+echo
+echo "Replacement completed successfully!"
+echo "All instances of '$SEARCH_STRING' have been replaced with '$REPLACEMENT'"
