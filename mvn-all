@@ -4,7 +4,7 @@
 MVNW_PATH="$(pwd)/.mvn/mvnw"
 
 # List of projects in the order you want to build
- projects=("spring-boot-base-parent", "spring-boot-base-common", "spring-boot-base-database", "spring-boot-base-web-services")
+ projects=("spring-boot-base-parent" "spring-boot-base-common" "spring-boot-base-database" "spring-boot-base-web-services")
  
 # Loop to remove the target directory for each project
 for project in "${projects[@]}"; do
