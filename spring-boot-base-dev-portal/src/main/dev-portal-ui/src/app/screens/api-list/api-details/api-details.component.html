@@ -1,0 +1,292 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <div class="row">
+      <h1 class="col">API Details</h1>
+      <button class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-4 btn btn-outline-primary" style="max-width: 150px" type="button" (click)="onCopyCurl()" [disabled]="isFetching"><i class="bi bi-clipboard"></i> {{curlButtonText}}</button>
+    </div>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item active">API Details</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section" *ngIf="isFetching">
+    <div class="row">
+      <div class="col">
+        <!-- Skeleton: Request Properties Card -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Request Properties</h5>
+            <div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">ID</label>
+                <div class="col-sm-10">
+                  <div class="skeleton skeleton-input"></div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Http Method</label>
+                <div class="col-sm-10">
+                  <div class="skeleton skeleton-input"></div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Endpoint</label>
+                <div class="col-sm-10">
+                  <div class="skeleton skeleton-input"></div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Request Date</label>
+                <div class="col-sm-10">
+                  <div class="skeleton skeleton-input"></div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Response Date</label>
+                <div class="col-sm-10">
+                  <div class="skeleton skeleton-input"></div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Response Status Code</label>
+                <div class="col-sm-10">
+                  <div class="skeleton skeleton-input"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skeleton: Request Data Card -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Request Data</h5>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="requestBody" class="form-label">RequestBody</label>
+                <div class="skeleton skeleton-textarea"></div>
+              </div>
+              <div class="col-md-6">
+                <label for="ResponseBody" class="form-label">ResponseBody</label>
+                <div class="skeleton skeleton-textarea"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skeleton: Debug Card -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Debug</h5>
+            <div class="accordion" id="debugAccordion">
+              <div class="skeleton skeleton-accordion"></div>
+              <div class="skeleton skeleton-accordion"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skeleton: JdbcTemplate Card -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">JdbcTemplate</h5>
+            <div class="skeleton skeleton-accordion"></div>
+            <div class="skeleton skeleton-accordion"></div>
+          </div>
+        </div>
+
+        <!-- Skeleton: Third Party APIs Card -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Third Party APIs</h5>
+            <div class="skeleton skeleton-accordion"></div>
+            <div class="skeleton skeleton-accordion"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" *ngIf="!isFetching">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Request Properties</h5>
+            <div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">ID</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" value="{{apiDetails?.id}}" disabled>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Http Method</label>
+                <div class="col-sm-10"><input type="text" class="form-control" value="{{apiDetails?.httpMethod}}" disabled></div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Endpoint</label>
+                <div class="col-sm-10"><input type="text" class="form-control" value="{{apiDetails?.endpoint}}" disabled></div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Request Date</label>
+                <div class="col-sm-10"><input type="text" class="form-control" value="{{apiDetails?.requestDate}}" disabled></div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Response Date</label>
+                <div class="col-sm-10"><input type="text" class="form-control" value="{{apiDetails?.responseDate}}" disabled></div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Response Status Code</label>
+                <div class="col-sm-10"><input type="text" class="form-control" value="{{apiDetails?.responseStatusCode}}" disabled></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Request Data</h5>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="requestBody" class="form-label">RequestBody</label>
+                <textarea id="requestBody" class="form-control" style="height: 300px" value="{{apiDetails?.requestBody | json}}" disabled></textarea>
+              </div>
+              <div class="col-md-6">
+                <label for="ResponseBody" class="form-label">ResponseBody</label>
+                <textarea id="ResponseBody" class="col" class="form-control" style="height: 300px" value="{{stringify(apiDetails?.responseBody!) | json}}" disabled></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Debug -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Debug</h5>
+            <div class="accordion" id="debugAccordion">
+              <!-- Logs -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="logHeading"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#logCollapse" aria-expanded="false" aria-controls="logCollapse"> Logs </button></h2>
+                <div id="logCollapse" class="accordion-collapse collapse" aria-labelledby="logHeading" data-bs-parent="#debugAccordion">
+                  <div class="accordion-body">
+                    <textarea id="logsTextArea" class="form-control" style="height: 900px" value="{{apiDetails?.logs!}}" disabled></textarea>
+                  </div>
+                </div>
+              </div>
+              <!-- Exception -->
+              <div class="accordion-item" *ngIf="apiDetails?.exceptionStackTrace != undefined">
+                <h2 class="accordion-header" id="exceptionHeading"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#exceptionCollapse" aria-expanded="false" aria-controls="exceptionCollapse"> Exception </button></h2>
+                <div id="exceptionCollapse" class="accordion-collapse collapse" aria-labelledby="exceptionHeading" data-bs-parent="#debugAccordion">
+                  <div class="accordion-body">
+                    <textarea id="exceptionStackTraceTextArea" oninput="auto_grow(this)" class="form-control" style="height: 900px" value="{{apiDetails?.exceptionStackTrace!}}" disabled></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- JdbcTemplate -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">JdbcTemplate</h5>
+            <div class="text-start" *ngIf="apiDetails?.jdbcApiModelList == undefined || apiDetails?.jdbcApiModelList!.length == 0"><p>No SQL queries have been executed</p></div>
+            <div class="accordion" id="jdbcCollapseAccordion">
+              <div class="accordion-item" *ngFor="let jdbcTemplateDetails of apiDetails?.jdbcApiModelList!; let i = index;">
+                <h2 class="accordion-header" id="jdbcHeading{{i}}">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          [attr.aria-controls]="'jdbcCollapse'+i" [attr.aria-expanded]="false"
+                          [attr.data-bs-target]="'#jdbcCollapse'+i"> {{jdbcTemplateDetails.packageName}}
+                  </button>
+                </h2>
+                <div [id]="'jdbcCollapse'+i" class="accordion-collapse collapse"
+                     [attr.aria-labelledby]="'jdbcCollapse'+i" [attr.data-bs-parent]="'#jdbcCollapseAccordion'">
+                  <div class="accordion-body">
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Function Name</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" value="{{jdbcTemplateDetails.jdbcTemplateFunctionName}}" disabled>
+                      </div>
+                    </div>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label for="jdbcRequest" class="form-label">Arguments</label>
+                        <textarea id="jdbcRequest" class="form-control" style="height: 300px" value="{{stringify(jdbcTemplateDetails.jdbcTemplateArgs) | json}}" disabled></textarea>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="jdbcResponse" class="form-label">Result</label>
+                        <textarea id="jdbcResponse" class="col" class="form-control" style="height: 300px" value="{{stringify(jdbcTemplateDetails.jdbcTemplateResult) | json}}" disabled></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Third Party APIs -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Third Party APIs</h5>
+            <div class="text-start" *ngIf="apiDetails?.thirdPartyApiModelList == undefined || apiDetails?.thirdPartyApiModelList!.length == 0"><p>No Third Party APIs have been Called</p></div>
+            <div class="row g-3">
+              <div class="accordion" id="accordionExample" *ngFor="let thirdPartyApi of apiDetails?.thirdPartyApiModelList; let i = index;">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="heading{{i}}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            [attr.aria-controls]="'collapse'+i" [attr.aria-expanded]="false"
+                            [attr.data-bs-target]="'#collapse'+i">
+                      {{thirdPartyApi.fullPath}} <span class="badge bg-white text-danger" *ngIf="!thirdPartyApi.responseStatusCode.startsWith('2')">Error</span>
+                    </button>
+                  </h2>
+                  <div [id]="'collapse'+i" class="accordion-collapse collapse"
+                       [attr.aria-labelledby]="'heading'+i" [attr.data-bs-parent]="'#accordionExample'">
+                    <div class="accordion-body">
+                      <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">ID</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" value="{{thirdPartyApi?.id}}" disabled>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Http Method</label>
+                        <div class="col-sm-10"><input type="text" class="form-control" value="{{thirdPartyApi?.httpMethod}}" disabled></div>
+                      </div>
+                      <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Endpoint</label>
+                        <div class="col-sm-10"><input type="text" class="form-control" value="{{thirdPartyApi?.endpoint}}" disabled></div>
+                      </div>
+                      <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Request Date</label>
+                        <div class="col-sm-10"><input type="text" class="form-control" value="{{thirdPartyApi?.requestDate}}" disabled></div>
+                      </div>
+                      <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Response Date</label>
+                        <div class="col-sm-10"><input type="text" class="form-control" value="{{thirdPartyApi?.responseDate}}" disabled></div>
+                      </div>
+                      <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Response Status Code</label>
+                        <div class="col-sm-10"><input type="text" class="form-control" value="{{thirdPartyApi?.responseStatusCode}}" disabled></div>
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <label for="thirdPartyRequestBodyTextArea" class="form-label">RequestBody</label>
+                          <textarea id="thirdPartyRequestBodyTextArea" class="form-control" style="height: 300px" value="{{stringify(thirdPartyApi?.requestBody!) | json}}" disabled></textarea>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="thirdPartyResponseBodyTextArea" class="form-label">ResponseBody</label>
+                          <textarea id="thirdPartyResponseBodyTextArea" class="col" class="form-control" style="height: 300px" value="{{stringify(thirdPartyApi?.responseBody!) | json}}" disabled></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

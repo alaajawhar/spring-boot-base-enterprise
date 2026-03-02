@@ -1,0 +1,53 @@
+/* Skeleton Loading Styles */
+
+/* Base skeleton element */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+/* Skeleton animation */
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Skeleton text variants */
+.skeleton-text {
+  height: 16px;
+  width: 80%;
+  margin: 0;
+}
+
+.skeleton-text-short {
+  width: 40%;
+}
+
+.skeleton-text-long {
+  width: 90%;
+}
+
+/* Skeleton row styling */
+.skeleton-row {
+  pointer-events: none;
+}
+
+.skeleton-row td,
+.skeleton-row th {
+  padding: 12px 8px;
+}
+
+/* Pagination cursor fix */
+.pagination .page-link {
+  cursor: pointer;
+}
+
+.pagination .page-item.disabled .page-link {
+  cursor: not-allowed;
+}

@@ -22,6 +22,9 @@
 
 * http://localhost:{port}/{context}/v3/api-docs example: http://localhost:8080/spring-boot-base/v3/api-docs
 
+# Dev Portal
+* http://localhost:{port}/{context}/v3/api-docs example: http://localhost:8080/spring-boot-base/dev-portal
+* 
 # Build project
 Run the following command
 ```shell

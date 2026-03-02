@@ -1,0 +1,187 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>API List</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item active">API List</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">API List</h5>
+            <div class="d-flex pb-2 justify-content-between align-items-center">
+              <p class="mb-0">List of all API that has been consumed sorted by date</p>
+              <button class="btn btn-primary btn-sm" (click)="onClear()">Clear</button>
+            </div>
+            <div class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Filter </button></h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <form class="row g-3">
+                      <div class="col-md-4">
+                        <label for="idText" class="form-label">ID</label>
+                        <input id="idText" type="text" class="form-control" [(ngModel)] = "apiListFilter.id" [ngModelOptions]="{standalone: true}">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="inputState" class="form-label">Http Method</label>
+                        <select id="inputState" class="form-select" [(ngModel)] = "apiListFilter.httpMethod" [ngModelOptions]="{standalone: true}">
+                          <option>POST</option>
+                          <option>GET</option>
+                          <option>POST</option>
+                          <option>DELETE</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="endpoint" class="form-label">Endpoint</label>
+                        <input id="endpoint" type="text" class="form-control" [(ngModel)] = "apiListFilter.endpoint" [ngModelOptions]="{standalone: true}">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="responseCode" class="form-label">Status Code</label>
+                        <input id="responseCode" type="text" class="form-control" [(ngModel)] = "apiListFilter.responseCode" [ngModelOptions]="{standalone: true}">
+                      </div>
+                      <div class="text-end"><div class="btn btn-primary" (click)="onFilter()">Filter</div></div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Error Message -->
+            <div class="alert alert-danger" role="alert" *ngIf="errorMessage && !isFetching">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ errorMessage }}
+            </div>
+
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Method</th>
+                <th scope="col">Endpoint</th>
+                <th scope="col">Status Code</th>
+                <th scope="col">Date</th>
+              </tr>
+              </thead>
+              <tbody>
+              <!-- Skeleton Rows (shown while loading) -->
+              <tr *ngIf="isFetching" class="skeleton-row" [class.skeleton-row]="isFetching" [attr.aria-hidden]="isFetching">
+                <th scope="row"><div class="skeleton skeleton-text"></div></th>
+                <td><div class="skeleton skeleton-text"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-short"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+              </tr>
+              <tr *ngIf="isFetching" class="skeleton-row">
+                <th scope="row"><div class="skeleton skeleton-text"></div></th>
+                <td><div class="skeleton skeleton-text"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-short"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+              </tr>
+              <tr *ngIf="isFetching" class="skeleton-row">
+                <th scope="row"><div class="skeleton skeleton-text"></div></th>
+                <td><div class="skeleton skeleton-text"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-short"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+              </tr>
+              <tr *ngIf="isFetching" class="skeleton-row">
+                <th scope="row"><div class="skeleton skeleton-text"></div></th>
+                <td><div class="skeleton skeleton-text"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-short"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+              </tr>
+              <tr *ngIf="isFetching" class="skeleton-row">
+                <th scope="row"><div class="skeleton skeleton-text"></div></th>
+                <td><div class="skeleton skeleton-text"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-short"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+              </tr>
+              <tr *ngIf="isFetching" class="skeleton-row">
+                <th scope="row"><div class="skeleton skeleton-text"></div></th>
+                <td><div class="skeleton skeleton-text"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-short"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+              </tr>
+              <tr *ngIf="isFetching" class="skeleton-row">
+                <th scope="row"><div class="skeleton skeleton-text"></div></th>
+                <td><div class="skeleton skeleton-text"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-short"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+              </tr>
+              <tr *ngIf="isFetching" class="skeleton-row">
+                <th scope="row"><div class="skeleton skeleton-text"></div></th>
+                <td><div class="skeleton skeleton-text"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-short"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+              </tr>
+              <tr *ngIf="isFetching" class="skeleton-row">
+                <th scope="row"><div class="skeleton skeleton-text"></div></th>
+                <td><div class="skeleton skeleton-text"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-short"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+              </tr>
+              <tr *ngIf="isFetching" class="skeleton-row">
+                <th scope="row"><div class="skeleton skeleton-text"></div></th>
+                <td><div class="skeleton skeleton-text"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-short"></div></td>
+                <td><div class="skeleton skeleton-text skeleton-text-long"></div></td>
+              </tr>
+
+              <!-- Actual Data Rows (shown when not loading) -->
+              <tr *ngFor="let apiListItem of apiListResponse?.list; let i = index" [hidden]="isFetching">
+                <th scope="row">{{apiListItem.id}}</th>
+                <td>{{apiListItem.httpMethod}}</td>
+                <td>{{apiListItem.endpoint}}</td>
+                <td [ngClass]="!apiListItem.responseStatusCode.startsWith('2')? 'text-danger': ''">{{apiListItem.responseStatusCode}}</td>
+                <td>
+                  <div class="row">
+                    <div class="col">{{apiListItem.date}}</div>
+                    <div class="col-2">
+                      <nav class="header-nav ms-auto">
+                        <ul class="d-flex align-items-center">
+                          <li class="nav-item dropdown">
+                            <a class="nav-link nav-profile d-flex align-items-center bi bi-three-dots-vertical" href="#" data-bs-toggle="dropdown"></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                              <li>
+                                <a class="dropdown-item d-flex align-items-center" routerLink="/api-details/{{apiListItem.id}}"> <i class="bi bi-chat-right-text"></i>
+                                  <span>Details</span> </a>
+                              </li>
+                              <li>
+                                <hr class="dropdown-divider">
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="text-center" *ngIf="!isFetching && !errorMessage && (apiListResponse?.totalCount == undefined || apiListResponse?.totalCount! == 0)"><p>No Transactions saved</p></div>
+            <nav aria-label="Page navigation example" *ngIf="apiListResponse?.totalCount != undefined && apiListResponse?.totalCount! != 0">
+              <ul class="pagination justify-content-center">
+                <li class="page-item" [ngClass]="this.selectedPageNumber == 1? 'disabled': ''"><a class="page-link" (click)="onPrevious()">Previous</a></li>
+                <li class="page-item" [ngClass]="this.selectedPageNumber == number? 'disabled': ''" *ngFor="let number of pageNumberArr"><a class="page-link" (click)="onPageChange(number)">{{number}}</a></li>
+                <li class="page-item" [ngClass]="this.selectedPageNumber == this.pageNumberArr.length? 'disabled': ''"><a class="page-link" (click)="onNext()">Next</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

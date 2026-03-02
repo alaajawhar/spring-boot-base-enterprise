@@ -45,6 +45,11 @@
             <artifactId>spring-boot-base-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.amdose</groupId>
+            <artifactId>spring-boot-base-dev-portal</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- UTILS -->
         <dependency>
